@@ -34,13 +34,14 @@ jobs:
           if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
             npm ci --workspaces || npm install --workspaces
           else
-            npm install --workspaces || true
+            npm install --workspaces
           fi
 
       - name: Run lint (if available)
         run: |
           if npm run | grep -q "lint"; then
-            npm run lint || echo "Lint failed but continuing"
+            echo "Running lint..."
+            npm run lint
           else
             echo "No lint script defined, skipping"
           fi
@@ -48,6 +49,7 @@ jobs:
       - name: Run typecheck (if available)
         run: |
           if npm run | grep -q "typecheck"; then
+            echo "Running typecheck..."
             npm run typecheck
           else
             echo "No typecheck script defined, skipping"
@@ -56,7 +58,8 @@ jobs:
       - name: Run tests (if available)
         run: |
           if npm run | grep -q "test"; then
-            npm run test || echo "Tests failed or no tests configured"
+            echo "Running tests..."
+            npm run test
           else
             echo "No test script defined, skipping"
           fi
@@ -64,7 +67,8 @@ jobs:
       - name: Run build (if available)
         run: |
           if npm run | grep -q "build"; then
-            npm run build || echo "Build failed or no build configured"
+            echo "Running build..."
+            npm run build
           else
             echo "No build script defined, skipping"
           fi
