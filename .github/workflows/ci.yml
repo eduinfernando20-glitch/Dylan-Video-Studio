@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies (workspaces aware)
         run: |
-          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+          if [ -f package-lock.json ] ; then
             npm ci --workspaces
           else
             npm install --workspaces
@@ -41,40 +41,19 @@ jobs:
         run: |
           if [ -f backend/prisma/schema.prisma ]; then
             echo "Prisma schema found — generating client"
-            cd backend
-            npx prisma generate
+            (cd backend && npx prisma generate)
           else
             echo "No Prisma schema found — skipping prisma generate"
           fi
 
-      - name: Run lint (if available)
+      - name: Typecheck
         run: |
-          if npm run | grep -q "lint"; then
-            npm run lint
-          else
-            echo "No lint script defined, skipping"
-          fi
+          npm run typecheck
 
-      - name: Run typecheck (if available)
+      - name: Run tests
         run: |
-          if npm run | grep -q "typecheck"; then
-            npm run typecheck
-          else
-            echo "No typecheck script defined, skipping"
-          fi
+          npm run test
 
-      - name: Run tests (if available)
+      - name: Build
         run: |
-          if npm run | grep -q "test"; then
-            npm run test
-          else
-            echo "No test script defined, skipping"
-          fi
-
-      - name: Run build (if available)
-        run: |
-          if npm run | grep -q "build"; then
-            npm run build
-          else
-            echo "No build script defined, skipping"
-          fi
+          npm run build
