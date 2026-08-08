@@ -1,0 +1,9 @@
+{
+  "name": "dylan-remotion",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "echo \"Remotion build will be configured later\"",
+    "render": "echo \"Remotion render will be configured later\""
+  }
+}

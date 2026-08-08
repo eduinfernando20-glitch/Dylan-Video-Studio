@@ -1,0 +1,10 @@
+{
+  "name": "dylan-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc -p tsconfig.base.json --outDir dist",
+    "start": "node dist/server.js"
+  }
+}
